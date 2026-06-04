@@ -1,0 +1,44 @@
+---
+name: University of Sussex
+description: University of Sussex public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/university-of-sussex/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      The University of Sussex has a thin public, documented API footprint. The
+      institution's research outputs are hosted on Figshare, which is publicly
+      browsable and backed by the standard public Figshare v2 REST API (host
+      live, returns HTTP 400 on a deliberately malformed query, which confirms
+      the API is responding). Identity is managed via Okta single sign-on
+      (OAuth2/OIDC) but is gated to staff/students and not openly documented for
+      third-party developers. The previously documented Sussex Research Online
+      EPrints OAI-PMH endpoint is decommissioned: a request to its old base URL
+      now returns HTTP 301 and redirects to a non-OAI HTML publications page
+      pointing at Figshare. A GitHub organization exists but currently has zero
+      public repositories. No course/timetable/SIS or open-data developer API
+      was confirmed. All entries verified live; nothing fabricated.
+    endpoints:
+      - url: https://www.sussex.ac.uk/
+        status: 200
+        note: Official institution website resolves.
+      - url: https://sussex.figshare.com/
+        status: 202
+        note: Figshare-hosted research repository portal (publicly browsable).
+      - url: https://api.figshare.com/v2/articles
+        status: 400
+        note: Public Figshare v2 REST API host is live; 400 returned on a deliberately malformed query parameter.
+      - url: https://www.sussex.ac.uk/its/services/sso
+        status: 200
+        note: Okta SSO (OAuth2/OIDC) service documentation; gated, not a public API.
+      - url: https://sro.sussex.ac.uk/cgi/oai2?verb=Identify
+        status: 301
+        note: Former EPrints OAI-PMH endpoint; now redirects to a non-OAI HTML publications page. Decommissioned.
+      - url: https://github.com/universityofsussex
+        status: 200
+        note: Official GitHub org exists but currently publishes zero public repositories.
+      - url: https://www.linkedin.com/school/university-of-sussex/
+        status: 200
+        note: Official LinkedIn school page.

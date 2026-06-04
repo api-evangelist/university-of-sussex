@@ -1,0 +1,78 @@
+---
+aid: university-of-sussex
+name: University of Sussex
+description: >-
+  The University of Sussex is a research-intensive public university near
+  Brighton, United Kingdom, ranked #247 in the QS World University Rankings
+  2025. Its public, machine-readable footprint is limited: the university's
+  research outputs (publications, data, theses) are hosted on Figshare, which
+  exposes a public REST API, while identity and access are managed through
+  Okta single sign-on (OAuth2/OpenID Connect) for staff and students. The
+  former Sussex Research Online EPrints repository and its OAI-PMH endpoint
+  have been decommissioned and now redirect to the Figshare-backed
+  publications service. A GitHub organization exists but currently publishes
+  no public repositories.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/university-of-sussex/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - Open Access
+  - United Kingdom
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: university-of-sussex:figshare-repository
+    name: University of Sussex Research Repository (Figshare)
+    description: >-
+      The University of Sussex research repository is hosted on Figshare and
+      contains publications, research data, theses, and other research
+      artefacts. The repository portal is publicly browsable and the
+      underlying content is accessible programmatically through the standard
+      public Figshare v2 REST API, which supports searching and retrieving
+      articles, collections, and projects scoped to the institution.
+    humanURL: https://sussex.figshare.com/
+    baseURL: https://api.figshare.com/v2
+    tags: [ Research, Open Access, Repository, Research Data, Figshare ]
+    properties:
+      - type: Documentation
+        url: https://docs.figshare.com/
+      - type: Website
+        url: https://sussex.figshare.com/
+  - aid: university-of-sussex:okta-sso
+    name: University of Sussex Single Sign-On (Okta)
+    description: >-
+      The University of Sussex uses Okta for single sign-on identity and
+      access management, providing OAuth2 / OpenID Connect authentication to
+      enrolled university applications including Sussex Direct. Access is
+      gated to staff and students with @sussex.ac.uk credentials and is not a
+      public, openly documented developer API.
+    humanURL: https://www.sussex.ac.uk/its/services/sso
+    tags: [ Identity, Authentication, SSO, OAuth2, OpenID Connect, Okta ]
+    properties:
+      - type: Documentation
+        url: https://www.sussex.ac.uk/its/services/sso
+common:
+  - type: Website
+    url: https://www.sussex.ac.uk/
+  - type: GitHub
+    url: https://github.com/universityofsussex
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/university-of-sussex/
+  - type: Plans
+    url: plans/university-of-sussex-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/university-of-sussex-rate-limits.yml
+  - type: FinOps
+    url: finops/university-of-sussex-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
