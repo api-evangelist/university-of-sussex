@@ -1,0 +1,43 @@
+vocabulary:
+  name: University of Sussex Research Repository Vocabulary
+  description: >-
+    Controlled vocabulary for the University of Sussex research repository as
+    exposed through the public Figshare v2 REST API. Terms describe the core
+    research objects, identifiers, and lifecycle dates observed in the API.
+  version: "1.0.0"
+  terms:
+    - term: article
+      definition: >-
+        A single research output (dataset, paper, thesis, media, software, or
+        other artefact) deposited in the repository and addressable by id and DOI.
+      tags: [object, research-output, figshare]
+    - term: collection
+      definition: A curated grouping of related articles under a shared title and DOI.
+      tags: [object, grouping, figshare]
+    - term: project
+      definition: A workspace grouping articles and collaborators around a research effort.
+      tags: [object, collaboration, figshare]
+    - term: doi
+      definition: Digital Object Identifier minted for an article or collection for citation.
+      tags: [identifier, citation]
+    - term: handle
+      definition: Persistent Handle System identifier assigned to a repository item.
+      tags: [identifier, persistence]
+    - term: defined_type
+      definition: Numeric code for the artefact type (e.g. figure, dataset, media, software).
+      tags: [classification, enum]
+    - term: defined_type_name
+      definition: Human-readable name of the artefact type (e.g. "dataset", "media").
+      tags: [classification]
+    - term: timeline
+      definition: Lifecycle dates for an item including first online and publication dates.
+      tags: [metadata, dates]
+    - term: institution
+      definition: The institutional scope (University of Sussex) used to filter listings and searches.
+      tags: [scope, query-parameter]
+    - term: thumb
+      definition: URL of a thumbnail preview image for the article.
+      tags: [media, url]
+    - term: search_for
+      definition: Free-text query string used by the article and collection search endpoints.
+      tags: [query, search]

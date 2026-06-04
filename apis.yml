@@ -26,6 +26,7 @@ tags:
   - United Kingdom
 created: '2026-06-03'
 modified: '2026-06-03'
+# modified bumped 2026-06-03 with pipeline enrichment artifacts
 specificationVersion: '0.19'
 apis:
   - aid: university-of-sussex:figshare-repository
@@ -45,6 +46,18 @@ apis:
         url: https://docs.figshare.com/
       - type: Website
         url: https://sussex.figshare.com/
+      - type: OpenAPI
+        url: openapi/university-of-sussex-figshare-repository.yaml
+      - type: x-json-schema
+        url: json-schema/university-of-sussex-article-schema.json
+      - type: x-json-structure
+        url: json-structure/university-of-sussex-article-structure.json
+      - type: x-rules
+        url: rules/university-of-sussex-rules.yml
+      - type: x-vocabulary
+        url: vocabulary/university-of-sussex-vocabulary.yml
+      - type: x-json-ld
+        url: json-ld/university-of-sussex-context.jsonld
   - aid: university-of-sussex:okta-sso
     name: University of Sussex Single Sign-On (Okta)
     description: >-

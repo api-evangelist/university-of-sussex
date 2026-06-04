@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.figshare.com/v2/articles/search",
+    "headers": { "Content-Type": "application/json" },
+    "body": {
+      "search_for": "climate change",
+      "institution": 259,
+      "page": 1,
+      "page_size": 10,
+      "order": "published_date",
+      "order_direction": "desc"
+    },
+    "description": "Search public articles, scoping to an institution and ordering by published date."
+  },
+  "response": [
+    {
+      "id": 19500001,
+      "title": "Regional climate change adaptation dataset",
+      "doi": "10.6084/m9.figshare.19500001",
+      "handle": "",
+      "url": "https://api.figshare.com/v2/articles/19500001",
+      "url_public_html": "https://figshare.com/articles/dataset/Regional_climate_change_adaptation_dataset/19500001",
+      "url_public_api": "https://api.figshare.com/v2/articles/19500001",
+      "url_private_html": "https://figshare.com/account/articles/19500001",
+      "url_private_api": "https://api.figshare.com/v2/account/articles/19500001",
+      "timeline": {
+        "firstOnline": "2022-04-01",
+        "publisherPublication": "2022-04-01"
+      },
+      "thumb": "",
+      "defined_type": 3,
+      "defined_type_name": "dataset",
+      "resource_doi": "",
+      "resource_title": "",
+      "created_date": "2022-04-01T09:00:00Z"
+    }
+  ]
+}

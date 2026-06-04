@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-sussex/main/json-schema/university-of-sussex-project-schema.json",
+  "title": "Figshare Project",
+  "description": "A research project grouping articles and collaborators in the University of Sussex Figshare repository, as returned by the public Figshare v2 API.",
+  "type": "object",
+  "required": ["id", "title", "url", "created_date", "modified_date"],
+  "properties": {
+    "id": { "type": "integer", "description": "Project id" },
+    "title": { "type": "string", "description": "Project title" },
+    "url": { "type": "string", "format": "uri", "description": "Api endpoint" },
+    "created_date": { "type": "string", "description": "Date when project was created" },
+    "modified_date": { "type": "string", "description": "Date when project was last modified" }
+  }
+}

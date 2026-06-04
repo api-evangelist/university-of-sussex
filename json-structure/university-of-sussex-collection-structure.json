@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-sussex/main/json-structure/university-of-sussex-collection-structure.json",
+  "name": "FigshareCollection",
+  "description": "JSON Structure for a University of Sussex Figshare repository collection from the public Figshare v2 API.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "int64", "description": "Collection id" },
+    "title": { "type": "string", "description": "Collection title" },
+    "doi": { "type": "string", "description": "Collection DOI" },
+    "handle": { "type": "string", "description": "Collection Handle" },
+    "url": { "type": "uri", "description": "Api endpoint" },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "firstOnline": { "type": "string", "description": "Online posted date" },
+        "publisherPublication": { "type": "string", "description": "Publish date" },
+        "publisherAcceptance": { "type": "string", "description": "Date accepted for publication" }
+      }
+    }
+  },
+  "required": ["id", "title", "doi", "handle", "url", "timeline"]
+}

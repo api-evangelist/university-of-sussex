@@ -1,0 +1,56 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "sussex": "https://www.sussex.ac.uk/ns/repository#",
+    "@vocab": "https://www.sussex.ac.uk/ns/repository#",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "institution": {
+      "@id": "schema:CollegeOrUniversity",
+      "@type": "@id"
+    },
+    "Article": "sussex:Article",
+    "Collection": "sussex:Collection",
+    "Project": "sussex:Project",
+    "id": "schema:identifier",
+    "title": "schema:name",
+    "doi": {
+      "@id": "schema:identifier",
+      "@type": "schema:PropertyValue"
+    },
+    "handle": "schema:identifier",
+    "thumb": {
+      "@id": "schema:thumbnailUrl",
+      "@type": "@id"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "url_public_html": { "@id": "schema:url", "@type": "@id" },
+    "url_public_api": { "@id": "schema:url", "@type": "@id" },
+    "defined_type_name": "schema:additionalType",
+    "created_date": {
+      "@id": "schema:dateCreated",
+      "@type": "schema:DateTime"
+    },
+    "modified_date": {
+      "@id": "schema:dateModified",
+      "@type": "schema:DateTime"
+    },
+    "timeline": "sussex:timeline",
+    "firstOnline": {
+      "@id": "schema:datePublished",
+      "@type": "schema:Date"
+    },
+    "publisherPublication": {
+      "@id": "schema:datePublished",
+      "@type": "schema:Date"
+    }
+  },
+  "@type": "schema:CollegeOrUniversity",
+  "name": "University of Sussex",
+  "url": "https://www.sussex.ac.uk/"
+}

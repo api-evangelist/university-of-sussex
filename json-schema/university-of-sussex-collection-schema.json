@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-sussex/main/json-schema/university-of-sussex-collection-schema.json",
+  "title": "Figshare Collection",
+  "description": "A collection grouping related articles in the University of Sussex Figshare repository, as returned by the public Figshare v2 API.",
+  "type": "object",
+  "required": ["id", "title", "doi", "handle", "url", "timeline"],
+  "properties": {
+    "id": { "type": "integer", "description": "Collection id" },
+    "title": { "type": "string", "description": "Collection title" },
+    "doi": { "type": "string", "description": "Collection DOI" },
+    "handle": { "type": "string", "description": "Collection Handle" },
+    "url": { "type": "string", "format": "uri", "description": "Api endpoint" },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "firstOnline": { "type": "string", "description": "Online posted date" },
+        "publisherPublication": { "type": "string", "description": "Publish date" },
+        "publisherAcceptance": { "type": "string", "description": "Date when the item was accepted for publication" }
+      }
+    }
+  }
+}

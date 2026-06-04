@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-sussex/main/json-schema/university-of-sussex-article-schema.json",
+  "title": "Figshare Article",
+  "description": "A research article, dataset, thesis, or other artefact in the University of Sussex Figshare repository, as returned by the public Figshare v2 API.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "doi",
+    "handle",
+    "url",
+    "url_public_html",
+    "url_public_api",
+    "url_private_html",
+    "url_private_api",
+    "timeline",
+    "thumb",
+    "defined_type",
+    "defined_type_name",
+    "resource_doi",
+    "resource_title",
+    "created_date"
+  ],
+  "properties": {
+    "id": { "type": "integer", "description": "Unique identifier for article" },
+    "title": { "type": "string", "description": "Title of article" },
+    "doi": { "type": "string", "description": "DOI" },
+    "handle": { "type": "string", "description": "Handle" },
+    "url": { "type": "string", "format": "uri", "description": "Api endpoint for article" },
+    "url_public_html": { "type": "string", "format": "uri", "description": "Public site endpoint for article" },
+    "url_public_api": { "type": "string", "format": "uri", "description": "Public Api endpoint for article" },
+    "url_private_html": { "type": "string", "format": "uri", "description": "Private site endpoint for article" },
+    "url_private_api": { "type": "string", "format": "uri", "description": "Private Api endpoint for article" },
+    "timeline": { "$ref": "#/definitions/Timeline" },
+    "thumb": { "type": "string", "format": "uri", "description": "Thumbnail image" },
+    "defined_type": { "type": "integer", "description": "Type of article identifier" },
+    "defined_type_name": { "type": "string", "description": "Name of the article type identifier" },
+    "resource_doi": { "type": "string", "description": "Publisher article DOI (deprecated by related materials)" },
+    "resource_title": { "type": "string", "description": "Publisher article title (deprecated by related materials)" },
+    "created_date": { "type": "string", "description": "Date when article was created" }
+  },
+  "definitions": {
+    "Timeline": {
+      "type": "object",
+      "properties": {
+        "firstOnline": { "type": "string", "description": "Online posted date" },
+        "publisherPublication": { "type": "string", "description": "Publish date" },
+        "publisherAcceptance": { "type": "string", "description": "Date when the item was accepted for publication" }
+      }
+    }
+  }
+}

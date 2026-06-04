@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-sussex/main/json-structure/university-of-sussex-article-structure.json",
+  "name": "FigshareArticle",
+  "description": "JSON Structure for a University of Sussex Figshare repository article (research output) from the public Figshare v2 API.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "int64", "description": "Unique identifier for article" },
+    "title": { "type": "string", "description": "Title of article" },
+    "doi": { "type": "string", "description": "DOI" },
+    "handle": { "type": "string", "description": "Handle" },
+    "url": { "type": "uri", "description": "Api endpoint for article" },
+    "url_public_html": { "type": "uri", "description": "Public site endpoint for article" },
+    "url_public_api": { "type": "uri", "description": "Public Api endpoint for article" },
+    "url_private_html": { "type": "uri", "description": "Private site endpoint for article" },
+    "url_private_api": { "type": "uri", "description": "Private Api endpoint for article" },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "firstOnline": { "type": "string", "description": "Online posted date" },
+        "publisherPublication": { "type": "string", "description": "Publish date" },
+        "publisherAcceptance": { "type": "string", "description": "Date accepted for publication" }
+      }
+    },
+    "thumb": { "type": "uri", "description": "Thumbnail image" },
+    "defined_type": { "type": "int32", "description": "Type of article identifier" },
+    "defined_type_name": { "type": "string", "description": "Name of the article type identifier" },
+    "resource_doi": { "type": "string", "description": "Publisher article DOI" },
+    "resource_title": { "type": "string", "description": "Publisher article title" },
+    "created_date": { "type": "string", "description": "Date when article was created" }
+  },
+  "required": [
+    "id", "title", "doi", "handle", "url", "url_public_html", "url_public_api",
+    "url_private_html", "url_private_api", "timeline", "thumb", "defined_type",
+    "defined_type_name", "resource_doi", "resource_title", "created_date"
+  ]
+}

@@ -1,0 +1,57 @@
+extends: []
+formats: [oas3]
+documentationUrl: https://docs.figshare.com/
+rules:
+  sussex-info-contact:
+    description: API info should include a contact for support.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  sussex-servers-figshare:
+    description: Server URL should point at the Figshare v2 API base.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://api\\.figshare\\.com/v2"
+
+  sussex-operation-id-snake-case:
+    description: Figshare operationIds use snake_case (e.g. articles_list).
+    severity: info
+    given: $.paths[*][get,post,put,delete,patch].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z0-9]+(_[a-z0-9]+)*$"
+
+  sussex-article-identifier-fields:
+    description: Article-like response schemas should expose id, doi, and url identifiers.
+    severity: info
+    given: $.components.schemas.Article.properties
+    then:
+      - field: id
+        function: truthy
+      - field: doi
+        function: truthy
+      - field: url
+        function: truthy
+
+  sussex-get-has-200:
+    description: GET operations should define a 200 response.
+    severity: warn
+    given: $.paths[*].get.responses
+    then:
+      field: "200"
+      function: truthy
+
+  sussex-tags-defined:
+    description: Operations should be tagged for navigability (articles, collections, projects, etc.).
+    severity: info
+    given: $.paths[*][get,post,put,delete,patch]
+    then:
+      field: tags
+      function: truthy
