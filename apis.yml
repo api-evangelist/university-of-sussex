@@ -40,7 +40,7 @@ tags:
 created: '2026-06-03'
 modified: '2026-06-03'
 # modified bumped 2026-06-03 with pipeline enrichment artifacts
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: university-of-sussex:okta-sso
   name: University of Sussex Single Sign-On (Okta)
