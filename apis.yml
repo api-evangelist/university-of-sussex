@@ -332,6 +332,9 @@ apis:
   - type: x-json-ld
     url: json-ld/university-of-sussex-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/university-of-sussex-capability-edges.yml
+    name: University of Sussex Business Capability Map
   - type: AgenticAccess
     url: agentic-access/university-of-sussex-agentic-access.yml
   - type: DomainSecurity
