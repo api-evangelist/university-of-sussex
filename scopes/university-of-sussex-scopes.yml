@@ -1,17 +1,47 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/university-of-sussex-figshare-repository.yaml
+# x-method: derived
+# x-source-url: https://okta.sussex.ac.uk/.well-known/openid-configuration
+# Authorship: written by API Evangelist tooling from LIVE PROBES of the URL above.
+# `x-method: derived` is the provenance-manifest vocabulary (build-provenance-manifest.py,
+# which has no `probed` term); `method: probed` below is the enrichment-pipeline vocabulary.
+# They agree: this artifact is ours, and its facts came off the wire, not off a claim.
+# University of Sussex — OAuth / OIDC scopes
+# Rebuilt 2026-08-30. The previous version listed FIGSHARE'S single `all` scope, derived
+# from Figshare's generic v2 OpenAPI, and credited it to the university. Removed.
+# The scopes below are read straight from the Sussex Okta tenant's OIDC discovery document.
+generated: '2026-08-30'
+method: probed
+source: https://okta.sussex.ac.uk/.well-known/openid-configuration
+provider: University of Sussex
+providerId: university-of-sussex
+
 schemes:
-- name: OAuth2
-  source: openapi/university-of-sussex-figshare-repository.yaml
+- name: Okta OpenID Connect (Sussex tenant)
+  x-operator: tenant
+  issuer: https://okta.sussex.ac.uk
+  source: https://okta.sussex.ac.uk/.well-known/openid-configuration
   flows:
   - flow: authorizationCode
-    authorizationUrl: https://figshare.com/account/applications/authorize
-    tokenUrl: https://api.figshare.com/v2/token
+    authorizationUrl: https://okta.sussex.ac.uk/oauth2/v1/authorize
+    tokenUrl: https://okta.sussex.ac.uk/oauth2/v1/token
+
 scopes:
-- scope: all
-  description: Grants all access
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/university-of-sussex-figshare-repository.yaml
+- scope: openid
+  description: Required OpenID Connect scope; requests an ID token for the authenticated Sussex account.
+- scope: profile
+  description: Basic profile claims (name, preferred_username, locale, updated_at).
+- scope: email
+  description: The account's email address and email_verified claim.
+- scope: address
+  description: Postal address claim.
+- scope: phone
+  description: Phone number and phone_number_verified claims.
+- scope: groups
+  description: Group memberships asserted by the Sussex Okta directory.
+- scope: offline_access
+  description: Issues a refresh token so a client can renew access without re-prompting.
+
+note: >-
+  These are the standard OpenID Connect scopes exposed by the org authorization server. They
+  are not a Sussex-authored API permission model, and no institution-operated resource API
+  publishes its own scopes. Access is gated to enrolled applications and to holders of
+  @sussex.ac.uk credentials; there is no public developer registration.

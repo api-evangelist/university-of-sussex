@@ -1,18 +1,92 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/university-of-sussex-figshare-repository.yaml
+# x-method: derived
+# x-source-url: https://okta.sussex.ac.uk/.well-known/openid-configuration
+# Authorship: written by API Evangelist tooling from LIVE PROBES of the URL above.
+# `x-method: derived` is the provenance-manifest vocabulary (build-provenance-manifest.py,
+# which has no `probed` term); `method: probed` below is the enrichment-pipeline vocabulary.
+# They agree: this artifact is ours, and its facts came off the wire, not off a claim.
+# University of Sussex — authentication surfaces
+# Rebuilt 2026-08-30. The previous version of this file was DERIVED FROM FIGSHARE'S
+# generic v2 OpenAPI and described Figshare's OAuth server, not the university's.
+# It has been removed. Everything below was probed live against Sussex-controlled hosts.
+generated: '2026-08-30'
+method: probed
+source: live HTTPS probes of idp.sussex.ac.uk and okta.sussex.ac.uk
+provider: University of Sussex
+providerId: university-of-sussex
+
 summary:
   types:
+  - saml2
+  - oidc
   - oauth2
   oauth2_flows:
   - authorizationCode
+  - implicit
+  - refreshToken
+  - deviceCode
+  - ciba
+  public_developer_registration: false
+  note: >-
+    Neither surface is a public developer API. Both gate access to enrolled Sussex
+    applications and require institutional affiliation; there is no self-serve client
+    registration for outside developers. They are recorded because they are the
+    institution's only live, machine-readable contracts.
+
 schemes:
-- name: OAuth2
-  type: oauth2
+- name: Shibboleth SAML 2.0 Identity Provider
+  type: saml2
+  x-operator: institution
+  entity_id: https://idp.sussex.ac.uk/shibboleth
+  metadata_url: https://idp.sussex.ac.uk/idp/shibboleth
+  scope: sussex.ac.uk
+  federation: UK Access Management Federation / eduGAIN (scope asserted in metadata; federation
+    registration not independently confirmed on 2026-08-30)
+  sources:
+  - url: https://idp.sussex.ac.uk/idp/shibboleth
+    status: 200
+
+- name: Okta OpenID Connect (Sussex tenant)
+  type: oidc
+  x-operator: tenant
+  issuer: https://okta.sussex.ac.uk
+  discovery_url: https://okta.sussex.ac.uk/.well-known/openid-configuration
+  vendor_host: sussexac.customdomains.okta.com
   flows:
   - flow: authorizationCode
-    authorizationUrl: https://figshare.com/account/applications/authorize
-    tokenUrl: https://api.figshare.com/v2/token
-    scopes: 1
+    authorizationUrl: https://okta.sussex.ac.uk/oauth2/v1/authorize
+    tokenUrl: https://okta.sussex.ac.uk/oauth2/v1/token
+    pkce: S256
+  endpoints:
+    userinfo: https://okta.sussex.ac.uk/oauth2/v1/userinfo
+    jwks: https://okta.sussex.ac.uk/oauth2/v1/keys
+    introspection: https://okta.sussex.ac.uk/oauth2/v1/introspect
+    revocation: https://okta.sussex.ac.uk/oauth2/v1/revoke
+    end_session: https://okta.sussex.ac.uk/oauth2/v1/logout
+    device_authorization: https://okta.sussex.ac.uk/oauth2/v1/device/authorize
+    pushed_authorization_request: https://okta.sussex.ac.uk/oauth2/v1/par
+    dynamic_client_registration: https://okta.sussex.ac.uk/oauth2/v1/clients
+  id_token_signing_alg_values_supported:
+  - RS256
+  dpop_signing_alg_values_supported:
+  - RS256
+  - RS384
+  - RS512
+  - ES256
+  - ES384
+  - ES512
   sources:
-  - openapi/university-of-sussex-figshare-repository.yaml
+  - url: https://okta.sussex.ac.uk/.well-known/openid-configuration
+    status: 200
+
+- name: Canvas LMS (Sussex tenant)
+  type: oauth2
+  x-operator: tenant
+  summary: >-
+    canvas.sussex.ac.uk answers /api/v1/* with 401 {"status":"unauthenticated"}. Canvas uses
+    OAuth2 bearer tokens issued per user; there is no public client registration on this tenant.
+  vendor_host: universityofsussex-vanity.instructure.com
+  sources:
+  - url: https://canvas.sussex.ac.uk/api/v1/accounts
+    status: 401
+  - url: https://canvas.sussex.ac.uk/api/lti/security/jwks
+    status: 200
