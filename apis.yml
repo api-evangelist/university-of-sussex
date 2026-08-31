@@ -1,354 +1,289 @@
 ---
 aid: university-of-sussex
 name: University of Sussex
+x-type: university
+x-category: Public Research University
 description: >-
-  The University of Sussex is a research-intensive public university near
-  Brighton, United Kingdom, ranked #247 in the QS World University Rankings
-  2025. Its public, machine-readable footprint is limited: the university's
-  research outputs (publications, data, theses) are hosted on Figshare, which
-  exposes a public REST API, while identity and access are managed through
-  Okta single sign-on (OAuth2/OpenID Connect) for staff and students. The
-  former Sussex Research Online EPrints repository and its OAI-PMH endpoint
-  have been decommissioned and now redirect to the Figshare-backed
-  publications service. A GitHub organization exists but currently publishes
-  no public repositories.
+  The University of Sussex is a research-intensive public university at Falmer near Brighton in
+  the United Kingdom, a member of the Russell Group's peer set of UK research institutions and
+  ranked #247 in the QS World University Rankings 2025. Its programmable footprint is small and
+  almost entirely indirect, and this profile says so rather than padding it. The one surface the
+  university genuinely operates and publishes machine-readably is its own Shibboleth identity
+  provider: idp.sussex.ac.uk serves signed SAML 2.0 metadata with an entityID of
+  https://idp.sussex.ac.uk/shibboleth and a shibmd:Scope of sussex.ac.uk, running on a
+  Sussex-controlled Azure deployment rather than a vendor's multi-tenant service. Everything else
+  that looks like a Sussex API is a vendor product running under a Sussex name: Okta for single
+  sign-on at okta.sussex.ac.uk, Instructure Canvas for the VLE at canvas.sussex.ac.uk, Figshare
+  for the research repository at sussex.figshare.com, and Ex Libris Primo for library discovery.
+  Those relationships are recorded here as tenant surfaces because they are real institutional
+  facts, but the contracts behind them belong to the vendors and are scored against the vendors'
+  own profiles. Sussex operates no public developer portal, publishes no OpenAPI of its own, and
+  its GitHub organization has no public repositories. The former Sussex Research Online EPrints
+  repository and its OAI-PMH endpoint have been decommissioned and now redirect to an HTML
+  publications page.
 type: Index
 deliveryModel:
   model: saas
   open_source: false
-  commercial: true
+  commercial: false
   callable_host: false
-  label: Hosted service · you call their endpoint
-  confidence: medium
-  source:
-  - openapi
-  - pricing
-  generated: '2026-08-28'
-  method: derived
-accessModel:
-  pricing: free
-  onboarding: self-serve
-  trial: false
-  try_now: true
-  public: false
-  label: Free · Self-serve signup
+  label: No institution-operated callable API · vendor platforms under an institutional name
   confidence: high
   source:
-  - plans
+  - probe
+  generated: '2026-08-30'
+  method: probed
+accessModel:
+  pricing: free
+  onboarding: affiliation
+  trial: false
+  try_now: false
+  public: false
+  label: Affiliation-gated · no public developer registration
+  confidence: high
+  source:
   - authentication
-  generated: '2026-07-22'
-  method: derived
+  - probe
+  generated: '2026-08-30'
+  method: probed
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/university-of-sussex.png
 url: https://raw.githubusercontent.com/api-evangelist/university-of-sussex/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
   - University
+  - Higher Education
+  - Education
+  - United Kingdom
+  - Russell Group
+  - Public Research University
+  - Identity Federation
+  - Research Repository
+  - Library
+  - Learning Management
   - Research
   - Open Access
-  - United Kingdom
 created: '2026-06-03'
-modified: '2026-06-03'
-# modified bumped 2026-06-03 with pipeline enrichment artifacts
+modified: '2026-08-30'
 specificationVersion: '0.23'
+x-coverage:
+  state: gated
+  reason: tenant_only
+  detail: >-
+    Sussex operates exactly one machine-readable contract of its own — the Shibboleth SAML 2.0
+    identity-provider metadata at idp.sussex.ac.uk, whose host CNAMEs to a Sussex-run Azure
+    instance (uos-idp-shib-prod.uksouth.cloudapp.azure.com), not to a vendor. Every other
+    programmable surface reachable under a Sussex name is a vendor platform on a Sussex-branded
+    hostname: okta.sussex.ac.uk CNAMEs to sussexac.customdomains.okta.com, canvas.sussex.ac.uk to
+    universityofsussex-vanity.instructure.com, sussex.figshare.com to figshare.com, and library
+    discovery is an Ex Libris Primo view (44SUS_INST). There is no developer portal, no
+    institution-authored OpenAPI, no open-data portal (data.sussex.ac.uk and api.sussex.ac.uk do
+    not resolve), and the GitHub organization has zero public repositories. One probe was blocked
+    rather than answered: sussex.figshare.com returns an AWS WAF challenge (HTTP 202,
+    x-amzn-waf-action: challenge, empty body) to every request including ?verb=Identify, so the
+    Figshare tenant's OAI-PMH endpoint could not be confirmed either way. This profile previously
+    carried ten OpenAPIs and thirty-eight artifacts derived from them; all ten were Figshare's
+    generic v2 contract with an empty servers block, shipped identically by eleven other
+    institutions, and have been removed.
+  generated: '2026-08-30'
+  method: probed
+  evidence:
+  - url: https://idp.sussex.ac.uk/idp/shibboleth
+    status: 200
+  - url: https://okta.sussex.ac.uk/.well-known/openid-configuration
+    status: 200
+  - url: https://canvas.sussex.ac.uk/api/v1/accounts
+    status: 401
+  - url: https://canvas.sussex.ac.uk/api/lti/security/jwks
+    status: 200
+  - url: https://sussex.figshare.com/oai?verb=Identify
+    status: 202
+  - url: https://sro.sussex.ac.uk/cgi/oai2?verb=Identify
+    status: 200
+  - url: https://sussex.primo.exlibrisgroup.com/discovery/search?vid=44SUS_INST:44SUS_VU1
+    status: 200
+  - url: https://api.github.com/orgs/universityofsussex/repos
+    status: 200
+  - url: https://data.sussex.ac.uk/
+    status: 0
+  - url: https://api.sussex.ac.uk/
+    status: 0
+  - url: https://www.sussex.ac.uk/llms.txt
+    status: 404
 apis:
-- aid: university-of-sussex:okta-sso
-  name: University of Sussex Single Sign-On (Okta)
+- aid: university-of-sussex:identity-federation
+  name: University of Sussex Shibboleth Identity Provider (SAML 2.0 metadata)
+  x-operator: institution
   description: >-
-    The University of Sussex uses Okta for single sign-on identity and access management, providing OAuth2
-    / OpenID Connect authentication to enrolled university applications including Sussex Direct. Access
-    is gated to staff and students with @sussex.ac.uk credentials and is not a public, openly documented
-    developer API.
+    The university's own Shibboleth IdP, publishing signed SAML 2.0 metadata as a machine-readable
+    EntityDescriptor. entityID https://idp.sussex.ac.uk/shibboleth, shibmd:Scope sussex.ac.uk,
+    IDPSSODescriptor with protocolSupportEnumeration urn:oasis:names:tc:SAML:2.0:protocol and both
+    signing and encryption KeyDescriptors. The host CNAMEs to uos-idp-shib-prod.uksouth.cloudapp.azure.com
+    — a Sussex-operated deployment, not a vendor's shared service — which is what makes this the one
+    institution-operated contract in this repository. It is metadata, not a REST API: there is no
+    OpenAPI to save and none has been invented.
   humanURL: https://www.sussex.ac.uk/its/services/sso
+  baseURL: https://idp.sussex.ac.uk/idp/
+  tags:
+  - Identity Federation
+  - SAML
+  - Shibboleth
+  - Single Sign-On
+  properties:
+  - type: IdentityFederation
+    url: https://idp.sussex.ac.uk/idp/shibboleth
+  - type: x-saml-metadata
+    url: authentication/university-of-sussex-idp-saml-metadata.xml
+  - type: x-conformance
+    url: conformance/university-of-sussex-domain-standards.yml
+  - type: Authentication
+    url: authentication/university-of-sussex-authentication.yml
+- aid: university-of-sussex:okta-sso
+  name: University of Sussex Single Sign-On (Okta tenant)
+  x-operator: tenant
+  description: >-
+    Sussex's Okta organization, reached on the Sussex-branded hostname okta.sussex.ac.uk, which
+    CNAMEs to sussexac.customdomains.okta.com. It serves a complete OpenID Connect discovery
+    document (issuer https://okta.sussex.ac.uk) advertising authorization code with PKCE, device
+    code, CIBA, PAR, DPoP and dynamic client registration. The tenant is Sussex's; the contract is
+    Okta's, so Okta's own generic API definition is deliberately not saved here. Access is limited
+    to applications enrolled by the university and to @sussex.ac.uk credential holders.
+  humanURL: https://www.sussex.ac.uk/its/services/sso
+  baseURL: https://okta.sussex.ac.uk
   tags:
   - Identity
   - Authentication
-  - SSO
-  - OpenID Connect
-  - Okta
-  tags_raw:
-  - Identity
-  - Authentication
-  - SSO
-  - OAuth2
+  - Single Sign-On
   - OpenID Connect
   - Okta
   properties:
+  - type: OpenIDConnectDiscovery
+    url: https://okta.sussex.ac.uk/.well-known/openid-configuration
   - type: Documentation
     url: https://www.sussex.ac.uk/its/services/sso
-- aid: university-of-sussex:university-of-sussex-altmetric-api
-  name: University of Sussex altmetric API
-  description: The altmetric API from University of Sussex — 1 operation(s) for altmetric.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - altmetric
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-altmetric-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-articles-api
-  name: University of Sussex articles API
-  description: The articles API from University of Sussex — 34 operation(s) for articles.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - Articles
-  tags_raw:
-  - articles
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-articles-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-authors-api
-  name: University of Sussex authors API
-  description: The authors API from University of Sussex — 2 operation(s) for authors.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - Authors
-  tags_raw:
-  - authors
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-authors-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-collections-api
-  name: University of Sussex collections API
-  description: The collections API from University of Sussex — 21 operation(s) for collections.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - Collection
-  tags_raw:
-  - collections
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-collections-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-institutions-api
-  name: University of Sussex institutions API
-  description: The institutions API from University of Sussex — 20 operation(s) for institutions.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - institutions
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-institutions-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-oauth-api
-  name: University of Sussex oauth API
-  description: The oauth API from University of Sussex — 1 operation(s) for oauth.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - Authentication
-  tags_raw:
-  - oauth
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-other-api
-  name: University of Sussex other API
-  description: The other API from University of Sussex — 7 operation(s) for other.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags: []
-  tags_raw:
-  - other
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-other-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-profiles-api
-  name: University of Sussex profiles API
-  description: The profiles API from University of Sussex — 2 operation(s) for profiles.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - Profiles
-  tags_raw:
-  - profiles
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-profiles-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-projects-api
-  name: University of Sussex projects API
-  description: The projects API from University of Sussex — 17 operation(s) for projects.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - Project
-  tags_raw:
-  - projects
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-projects-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-- aid: university-of-sussex:university-of-sussex-symplectic-api
-  name: University of Sussex symplectic API
-  description: The symplectic API from University of Sussex — 5 operation(s) for symplectic.
-  humanURL: https://sussex.figshare.com/
-  baseURL: https://api.figshare.com/v2
-  tags:
-  - symplectic
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-sussex-symplectic-api-openapi.yml
-  - type: Documentation
-    url: https://docs.figshare.com/
-  - type: Website
-    url: https://sussex.figshare.com/
-  - type: x-json-schema
-    url: json-schema/university-of-sussex-article-schema.json
-  - type: x-json-structure
-    url: json-structure/university-of-sussex-article-structure.json
-  - type: x-rules
-    url: rules/university-of-sussex-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/university-of-sussex-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-sussex-context.jsonld
-common:
-  - type: CapabilityMap
-    url: capabilities/university-of-sussex-capability-edges.yml
-    name: University of Sussex Business Capability Map
-  - type: AgenticAccess
-    url: agentic-access/university-of-sussex-agentic-access.yml
-  - type: DomainSecurity
-    url: security/university-of-sussex-domain-security.yml
+  - type: APIReference
+    url: https://developer.okta.com/docs/reference/
   - type: Authentication
     url: authentication/university-of-sussex-authentication.yml
   - type: OAuthScopes
     url: scopes/university-of-sussex-scopes.yml
+- aid: university-of-sussex:canvas-vle
+  name: University of Sussex Canvas VLE (Instructure tenant)
+  x-operator: tenant
+  description: >-
+    Sussex's virtual learning environment, an Instructure Canvas deployment on the university's own
+    hostname canvas.sussex.ac.uk, which CNAMEs to universityofsussex-vanity.instructure.com. The
+    Canvas REST API answers on this host — /api/v1/accounts returns 401 {"status":"unauthenticated"} —
+    and the LTI 1.3 platform keyset at /api/lti/security/jwks returns a live JWKS, which is the
+    university's only confirmed Learning Tools Interoperability evidence. The deployment is Sussex's;
+    the API contract is Instructure's and is not saved under this slug.
+  humanURL: https://www.sussex.ac.uk/its/services/teachingandlearning/studydirect
+  baseURL: https://canvas.sussex.ac.uk/api/v1
+  tags:
+  - Learning Management
+  - LTI
+  - Canvas
+  - Teaching
+  properties:
+  - type: JWKS
+    url: https://canvas.sussex.ac.uk/api/lti/security/jwks
+  - type: APIReference
+    url: https://canvas.instructure.com/doc/api/
+  - type: x-conformance
+    url: conformance/university-of-sussex-domain-standards.yml
+- aid: university-of-sussex:figshare-repository
+  name: University of Sussex Research Data Repository (Figshare tenant)
+  x-operator: tenant
+  description: >-
+    Sussex's institutional research repository, a Figshare tenant at sussex.figshare.com (CNAME to
+    figshare.com). The relationship is independently confirmed by DataCite, where the university is
+    a member provider (OTZZ) operating one repository client, FIGSHARE.SUSSEX, bound to the domain
+    sussex.figshare.com. The data and the DOIs are Sussex's; the API is Figshare's generic v2
+    contract. Ten copies of that contract were previously stored in this repository under Sussex's
+    name — the same document eleven other institutions also shipped — and have been removed. The
+    tenant host itself is behind an AWS WAF challenge (HTTP 202) and could not be probed on
+    2026-08-30; that is a blocked probe, not a dead host.
+  humanURL: https://sussex.figshare.com/
+  baseURL: https://sussex.figshare.com
+  x-vendor-api-base: https://api.figshare.com/v2
+  x-vendor-note: >-
+    The generic Figshare v2 API base is recorded as x-vendor-api-base, NOT as this entry's
+    baseURL. It is a host eleven other institutions in this catalog also point at; it belongs
+    to Figshare's own profile. What Sussex operates is the tenant at sussex.figshare.com.
+  tags:
+  - Research Repository
+  - Research Data
+  - Open Access
+  - Figshare
+  - DataCite
+  properties:
+  - type: ResearchRepository
+    url: https://sussex.figshare.com/
+  - type: APIReference
+    url: https://docs.figshare.com/
+  - type: Registry
+    url: https://api.datacite.org/clients/figshare.sussex
+  - type: x-conformance
+    url: conformance/university-of-sussex-domain-standards.yml
+- aid: university-of-sussex:primo-discovery
+  name: University of Sussex Library Discovery (Ex Libris Primo tenant)
+  x-operator: tenant
+  description: >-
+    Library discovery for Sussex runs on Ex Libris Primo VE as institution view 44SUS_INST /
+    44SUS_VU1, hosted on the vendor's shared platform at sussex.primo.exlibrisgroup.com. Sussex owns
+    the view and the holdings; Ex Libris owns the platform and the API contract, which is gated
+    behind Ex Libris developer keys and is not saved here.
+  humanURL: https://www.sussex.ac.uk/library/
+  baseURL: https://sussex.primo.exlibrisgroup.com/discovery
+  tags:
+  - Library
+  - Discovery
+  - Primo
+  - Ex Libris
+  properties:
+  - type: LibraryCatalog
+    url: https://sussex.primo.exlibrisgroup.com/discovery/search?vid=44SUS_INST:44SUS_VU1
+  - type: APIReference
+    url: https://developers.exlibrisgroup.com/primo/apis/
+common:
   - type: Website
     url: https://www.sussex.ac.uk/
-  - type: GitHub
+  - type: IdentityFederation
+    url: https://idp.sussex.ac.uk/idp/shibboleth
+  - type: SAMLMetadata
+    url: authentication/university-of-sussex-idp-saml-metadata.xml
+  - type: ResearchRepository
+    url: https://sussex.figshare.com/
+  - type: LibraryCatalog
+    url: https://sussex.primo.exlibrisgroup.com/discovery/search?vid=44SUS_INST:44SUS_VU1
+  - type: CourseCatalog
+    url: https://www.sussex.ac.uk/study/undergraduate/courses
+  - type: ResearchComputing
+    url: https://www.sussex.ac.uk/its/services/research/highperformance
+  - type: Documentation
+    url: https://www.sussex.ac.uk/its/about/servicedescriptions
+  - type: Support
+    url: https://www.sussex.ac.uk/its/help/
+  - type: Blog
+    url: https://www.sussex.ac.uk/news/
+  - type: PrivacyPolicy
+    url: https://www.sussex.ac.uk/about/website/privacy-and-cookies/privacy
+  - type: Accessibility
+    url: https://www.sussex.ac.uk/about/website/accessibility
+  - type: GitHubOrganization
     url: https://github.com/universityofsussex
   - type: LinkedIn
     url: https://www.linkedin.com/school/university-of-sussex/
+  - type: Publications
+    url: https://www.sussex.ac.uk/research/publications
+  - type: Authentication
+    url: authentication/university-of-sussex-authentication.yml
+  - type: OAuthScopes
+    url: scopes/university-of-sussex-scopes.yml
+  - type: Conformance
+    url: conformance/university-of-sussex-domain-standards.yml
+  - type: DomainSecurity
+    url: security/university-of-sussex-domain-security.yml
   - type: Plans
     url: plans/university-of-sussex-plans-pricing.yml
   - type: RateLimits
