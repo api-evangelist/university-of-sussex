@@ -128,6 +128,11 @@ apis:
   - Identity Federation
   - SAML
   - Shibboleth
+  - SSO
+  tags_raw:
+  - Identity Federation
+  - SAML
+  - Shibboleth
   - Single Sign-On
   properties:
   - type: IdentityFederation
@@ -151,6 +156,12 @@ apis:
   humanURL: https://www.sussex.ac.uk/its/services/sso
   baseURL: https://okta.sussex.ac.uk
   tags:
+  - Identity
+  - Authentication
+  - SSO
+  - OpenID Connect
+  - Okta
+  tags_raw:
   - Identity
   - Authentication
   - Single Sign-On
