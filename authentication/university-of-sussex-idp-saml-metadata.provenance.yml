@@ -1,0 +1,23 @@
+# x-method: searched
+# x-source-url: https://idp.sussex.ac.uk/idp/shibboleth
+# Provenance sidecar for university-of-sussex-idp-saml-metadata.xml, which is an XML document
+# and cannot carry a YAML provenance header of its own.
+generated: '2026-08-30'
+method: searched
+source: https://idp.sussex.ac.uk/idp/shibboleth
+status: 200
+file: authentication/university-of-sussex-idp-saml-metadata.xml
+description: >-
+  A verbatim mirror of the University of Sussex Shibboleth Identity Provider's published SAML 2.0
+  metadata, fetched 2026-08-30. This is the institution's OWN document, published by the
+  institution at a host it controls — idp.sussex.ac.uk CNAMEs to
+  uos-idp-shib-prod.uksouth.cloudapp.azure.com, a Sussex-run Azure deployment, not a vendor's
+  multi-tenant service. It is the only institution-operated machine-readable contract in this
+  repository, and it is mirrored rather than merely linked so the fact survives the endpoint.
+  Nothing in it was authored, reformatted, or extended by API Evangelist.
+x-operator: institution
+entity_id: https://idp.sussex.ac.uk/shibboleth
+scope: sussex.ac.uk
+standards:
+- saml
+- shibboleth

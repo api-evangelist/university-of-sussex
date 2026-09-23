@@ -1,0 +1,120 @@
+# x-method: derived
+# x-source-url: https://idp.sussex.ac.uk/idp/shibboleth
+# Authorship: written by API Evangelist tooling from LIVE PROBES of the URL above.
+# `x-method: derived` is the provenance-manifest vocabulary (build-provenance-manifest.py,
+# which has no `probed` term); `method: probed` below is the enrichment-pipeline vocabulary.
+# They agree: this artifact is ours, and its facts came off the wire, not off a claim.
+# University of Sussex — education-regime domain standard conformance
+# Reward-only. Every entry below was PROBED live on 2026-08-30; nothing is
+# inferred from a prose claim, a vendor marketing page, or a link.
+# Standards not listed here were looked for and NOT found — see `not_observed`.
+generated: '2026-08-30'
+method: probed
+source: live HTTP probes of institution and tenant hosts, plus the DataCite REST API
+provider: University of Sussex
+providerId: university-of-sussex
+regime: education
+
+conformance:
+- standard: shibboleth
+  status: confirmed
+  x-operator: institution
+  summary: >-
+    University of Sussex operates its own Shibboleth Identity Provider and publishes
+    signed SAML 2.0 metadata for it. The host is a Sussex-controlled name delegated to
+    a Sussex-run Azure deployment (uos-idp-shib-prod), not a vendor multi-tenant service.
+  evidence:
+  - url: https://idp.sussex.ac.uk/idp/shibboleth
+    status: 200
+    locator: /EntityDescriptor/@entityID
+    value: https://idp.sussex.ac.uk/shibboleth
+  - url: https://idp.sussex.ac.uk/idp/shibboleth
+    status: 200
+    locator: /EntityDescriptor/IDPSSODescriptor/Extensions/shibmd:Scope
+    value: sussex.ac.uk
+  - url: dns:idp.sussex.ac.uk
+    status: 200
+    locator: CNAME
+    value: uos-idp-shib-prod.uksouth.cloudapp.azure.com
+
+- standard: saml
+  status: confirmed
+  x-operator: institution
+  summary: >-
+    The same document is a SAML 2.0 metadata EntityDescriptor carrying an IDPSSODescriptor
+    with protocolSupportEnumeration urn:oasis:names:tc:SAML:2.0:protocol, signing and
+    encryption KeyDescriptors, and mdui:UIInfo.
+  evidence:
+  - url: https://idp.sussex.ac.uk/idp/shibboleth
+    status: 200
+    locator: /EntityDescriptor/IDPSSODescriptor/@protocolSupportEnumeration
+    value: urn:oasis:names:tc:SAML:2.0:protocol
+
+- standard: lti
+  status: confirmed
+  x-operator: tenant
+  summary: >-
+    Sussex's Canvas deployment exposes an LTI 1.3 / IMS Global Learning Tools
+    Interoperability platform JWKS on the institution's own hostname. The deployment is
+    Sussex's; the LMS and the contract are Instructure's (canvas.sussex.ac.uk CNAMEs to
+    universityofsussex-vanity.instructure.com). Recorded as tenant, not institution.
+  evidence:
+  - url: https://canvas.sussex.ac.uk/api/lti/security/jwks
+    status: 200
+    locator: $.keys[0].kty
+    value: RSA
+  - url: dns:canvas.sussex.ac.uk
+    status: 200
+    locator: CNAME
+    value: universityofsussex-vanity.instructure.com
+
+- standard: datacite
+  status: confirmed
+  x-operator: tenant
+  summary: >-
+    University of Sussex is a DataCite member (provider OTZZ, consortium organization) and
+    operates one DataCite repository client, FIGSHARE.SUSSEX, bound to the domain
+    sussex.figshare.com. DOI minting runs through the Figshare tenant, so the operator is
+    tenant, not institution.
+  evidence:
+  - url: https://api.datacite.org/providers/otzz
+    status: 200
+    locator: $.data.attributes.name
+    value: University of Sussex
+  - url: https://api.datacite.org/clients/figshare.sussex
+    status: 200
+    locator: $.data.attributes.domains
+    value: sussex.figshare.com,figshare.com
+
+- standard: oai-pmh
+  status: not_verified
+  x-operator: tenant
+  summary: >-
+    Figshare institutional portals normally serve OAI-PMH at /oai, but sussex.figshare.com
+    answers every request — with or without a browser User-Agent — with an AWS WAF challenge
+    (HTTP 202, x-amzn-waf-action: challenge, zero-length body), so ?verb=Identify could not be
+    confirmed. This is a blocked probe, not evidence of absence. The former institution-run
+    EPrints OAI-PMH endpoint at sro.sussex.ac.uk/cgi/oai2 is gone: it 301s to
+    www.sussex.ac.uk/research/publications, an HTML page.
+  evidence:
+  - url: https://sussex.figshare.com/oai?verb=Identify
+    status: 202
+    locator: header x-amzn-waf-action
+    value: challenge
+  - url: https://sro.sussex.ac.uk/cgi/oai2?verb=Identify
+    status: 200
+    locator: effective URL after redirect
+    value: https://www.sussex.ac.uk/research/publications
+
+not_observed:
+- scim
+- oneroster
+- ed-fi
+- caliper
+- qti
+- orcid
+- crossref
+not_observed_note: >-
+  Searched for these on institution hosts and on the Okta, Canvas, Figshare and Primo tenants.
+  No public, machine-readable evidence was found on 2026-08-30. Absence here is a measurement,
+  not a claim that the institution does not use them internally.

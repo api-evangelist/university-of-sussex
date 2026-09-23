@@ -64,59 +64,98 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The University of Sussex is a research-intensive public university near Brighton, United Kingdom, ranked #247 in the QS World University Rankings 2025. This repository catalogs the institution's public developer and API footprint as an APIs.json provider profile.
+The University of Sussex is a research-intensive public university at Falmer near Brighton, United Kingdom, ranked #247 in the QS World University Rankings 2025. This repository catalogs the institution's public developer and API footprint as an APIs.json provider profile.
 
 - APIs.json: [apis.yml](https://raw.githubusercontent.com/api-evangelist/university-of-sussex/refs/heads/main/apis.yml)
 - Run with Naftiko: [naftiko/fleet](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=university-of-sussex-api-evangelist&utm_content=repo)
 
 ## Type
 
-- Index / Consumer / 3rd-Party
+- university / Public Research University / Index / Consumer / 3rd-Party
 
 ## Tags
 
-- Education
-- Higher Education
 - University
+- Higher Education
+- Education
+- United Kingdom
+- Russell Group
+- Public Research University
+- Identity Federation
+- Research Repository
+- Library
+- Learning Management
 - Research
 - Open Access
-- United Kingdom
 
-## APIs
+## Who operates what
 
-- **University of Sussex Research Repository (Figshare)** — Research outputs (publications, data, theses, artefacts) hosted on Figshare, accessible via the public Figshare v2 REST API. Docs: [docs.figshare.com](https://docs.figshare.com/) · Portal: [sussex.figshare.com](https://sussex.figshare.com/)
-- **University of Sussex Single Sign-On (Okta)** — Okta-based OAuth2 / OpenID Connect identity and access management for university applications. Gated to staff/students. Docs: [sussex.ac.uk/its/services/sso](https://www.sussex.ac.uk/its/services/sso)
+Every surface below carries an operator. `institution` means Sussex runs the thing the contract
+describes. `tenant` means Sussex owns the account and the data but a vendor wrote the contract and
+runs the platform — the contract is scored against that vendor's own profile, not against Sussex.
 
-## Plans
+| Surface | Operator | Evidence |
+|---|---|---|
+| [Shibboleth IdP SAML 2.0 metadata](https://idp.sussex.ac.uk/idp/shibboleth) | **institution** | 200; `entityID=https://idp.sussex.ac.uk/shibboleth`, `shibmd:Scope=sussex.ac.uk`; host CNAMEs to `uos-idp-shib-prod.uksouth.cloudapp.azure.com` |
+| [Okta SSO (OIDC discovery)](https://okta.sussex.ac.uk/.well-known/openid-configuration) | tenant | 200; issuer `https://okta.sussex.ac.uk`; host CNAMEs to `sussexac.customdomains.okta.com` |
+| [Canvas VLE](https://canvas.sussex.ac.uk/api/lti/security/jwks) | tenant | `/api/v1/*` 401; LTI 1.3 JWKS 200; host CNAMEs to `universityofsussex-vanity.instructure.com` |
+| [Figshare research repository](https://sussex.figshare.com/) | tenant | AWS WAF challenge (202); DataCite client `FIGSHARE.SUSSEX`, domains `sussex.figshare.com` |
+| [Ex Libris Primo discovery](https://sussex.primo.exlibrisgroup.com/discovery/search?vid=44SUS_INST:44SUS_VU1) | tenant | 200; institution view `44SUS_INST` on the vendor's shared host |
 
+## Correction — 2026-08-30
+
+This profile previously listed **ten OpenAPI definitions** under Sussex's name
+(`altmetric`, `articles`, `authors`, `collections`, `institutions`, `oauth`, `other`, `profiles`,
+`projects`, `symplectic`) and **thirty-eight artifacts derived from them**. All ten were the same
+document: Figshare's generic v2 API contract, `info.title` beginning "Figshare", `info.contact`
+`support.figshare.com`, and an **empty `servers` block** — the same contract eleven other
+institutions in this catalog also shipped under their own names. None of it was Sussex's
+engineering, and all of it has been removed, along with the JSON Schemas, JSON Structures,
+examples, Postman/OpenCollection collections, Spectral rulesets, vocabulary, JSON-LD context,
+agentic-access classification and capability map that inherited its provenance.
+
+What replaced it is smaller and true: Sussex's own Shibboleth identity provider, four recorded
+tenant relationships, and probed conformance against the education regime's domain standards.
+
+## Artifacts
+
+- [conformance/university-of-sussex-domain-standards.yml](conformance/university-of-sussex-domain-standards.yml) — probed `shibboleth`, `saml`, `lti`, `datacite`; `oai-pmh` blocked
+- [authentication/university-of-sussex-authentication.yml](authentication/university-of-sussex-authentication.yml) — probed
+- [scopes/university-of-sussex-scopes.yml](scopes/university-of-sussex-scopes.yml) — probed
+- [security/university-of-sussex-domain-security.yml](security/university-of-sussex-domain-security.yml)
 - [plans/university-of-sussex-plans-pricing.yml](plans/university-of-sussex-plans-pricing.yml)
-
-## Rate Limits
-
 - [rate-limits/university-of-sussex-rate-limits.yml](rate-limits/university-of-sussex-rate-limits.yml)
-
-## FinOps
-
 - [finops/university-of-sussex-finops.yml](finops/university-of-sussex-finops.yml)
+- [review.yml](review.yml)
+
+There is no `openapi/` directory. Sussex publishes no OpenAPI of its own, and none has been
+generated to fill the gap.
 
 ## Timestamps
 
 - Created: 2026-06-03
-- Modified: 2026-06-03
+- Modified: 2026-08-30
 
 ## Common Properties
 
 - Website: https://www.sussex.ac.uk/
-- GitHub: https://github.com/universityofsussex (exists, no public repositories)
+- GitHub: https://github.com/universityofsussex (exists, zero public repositories)
 - LinkedIn: https://www.linkedin.com/school/university-of-sussex/
+- Course catalog: https://www.sussex.ac.uk/study/undergraduate/courses
+- Research computing (HPC): https://www.sussex.ac.uk/its/services/research/highperformance
+- IT service catalogue: https://www.sussex.ac.uk/its/about/servicedescriptions
 
 ## Notes
 
-- Verification discipline: only APIs and properties confirmed live are listed; nothing fabricated.
-- The Figshare research repository portal and the public Figshare v2 REST API host (`api.figshare.com/v2`) are live; the API host returns HTTP 400 on a deliberately malformed query, confirming it is responding.
-- The former Sussex Research Online EPrints OAI-PMH endpoint (`sro.sussex.ac.uk/cgi/oai2`) is decommissioned and now redirects (HTTP 301) to a non-OAI HTML publications page that points to Figshare.
-- Okta SSO is gated to staff/students with @sussex.ac.uk credentials and is not an openly documented third-party developer API.
-- No public course/timetable/SIS or open-data developer API was confirmed.
+- Verification discipline: only surfaces confirmed live are listed; nothing fabricated.
+- Sussex operates **no public developer portal and no institution-authored API contract**. That is
+  a correct measurement of a university, not a gap in this profile.
+- `data.sussex.ac.uk` and `api.sussex.ac.uk` do not resolve. `www.sussex.ac.uk/llms.txt` is a 404.
+- `sussex.figshare.com` sits behind an AWS WAF challenge (HTTP 202, `x-amzn-waf-action: challenge`)
+  that answers every request with an empty body, so the Figshare tenant's OAI-PMH endpoint could
+  not be confirmed. That is a blocked probe, not a dead host.
+- The former Sussex Research Online EPrints OAI-PMH endpoint (`sro.sussex.ac.uk/cgi/oai2`) is
+  decommissioned and redirects to an HTML publications page.
 
 ## Maintainers
 
