@@ -64,7 +64,7 @@ tags:
   - Research
   - Open Access
 created: '2026-06-03'
-modified: '2026-08-30'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 x-coverage:
   state: gated
@@ -257,6 +257,8 @@ apis:
   - type: APIReference
     url: https://developers.exlibrisgroup.com/primo/apis/
 common:
+  - url: https://www.sussex.ac.uk/broadcast/feed/news/external-homepage.rss
+    type: BlogRSS
   - type: Website
     url: https://www.sussex.ac.uk/
   - type: IdentityFederation
