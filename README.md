@@ -1,4 +1,4 @@
-# University of Sussex (university-of-sussex)
+# University of Sussex
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,99 +64,123 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The University of Sussex is a research-intensive public university at Falmer near Brighton, United Kingdom, ranked #247 in the QS World University Rankings 2025. This repository catalogs the institution's public developer and API footprint as an APIs.json provider profile.
+The University of Sussex is a research-intensive public university at Falmer near Brighton in the United Kingdom, a member of the Russell Group's peer set of UK research institutions and ranked #247 in the QS World University Rankings 2025. Its programmable footprint is small and almost entirely indirect, and this profile says so rather than padding it. The one surface the university genuinely operates and publishes machine-readably is its own Shibboleth identity provider: idp.sussex.ac.uk serves signed SAML 2.0 metadata with an entityID of https://idp.sussex.ac.uk/shibboleth and a shibmd:Scope of sussex.ac.uk, running on a Sussex-controlled Azure deployment rather than a vendor's multi-tenant service. Everything else that looks like a Sussex API is a vendor product running under a Sussex name: Okta for single sign-on at okta.sussex.ac.uk, Instructure Canvas for the VLE at canvas.sussex.ac.uk, Figshare for the research repository at sussex.figshare.com, and Ex Libris Primo for library discovery. Those relationships are recorded here as tenant surfaces because they are real institutional facts, but the contracts behind them belong to the vendors and are scored against the vendors' own profiles. Sussex operates no public developer portal, publishes no OpenAPI of its own, and its GitHub organization has no public repositories. The former Sussex Research Online EPrints repository and its OAI-PMH endpoint have been decommissioned and now redirect to an HTML publications page.
 
-- APIs.json: [apis.yml](https://raw.githubusercontent.com/api-evangelist/university-of-sussex/refs/heads/main/apis.yml)
-- Run with Naftiko: [naftiko/fleet](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=university-of-sussex-api-evangelist&utm_content=repo)
+**Areas:** University · Higher Education · Education · United Kingdom · Russell Group · Public Research University · Identity Federation · Research Repository · Library · LMS · Research · Open Access
 
-## Type
+## University of Sussex on APIs.io
 
-- university / Public Research University / Index / Consumer / 3rd-Party
+Everything profiled for University of Sussex is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/university-of-sussex/](https://apis.io/providers/university-of-sussex/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- University
-- Higher Education
-- Education
-- United Kingdom
-- Russell Group
-- Public Research University
-- Identity Federation
-- Research Repository
-- Library
-- Learning Management
-- Research
-- Open Access
+- [University of Sussex Shibboleth Identity Provider (SAML 2.0 metadata)](https://apis.io/apis/university-of-sussex/identity-federation/) — The university's own Shibboleth IdP, publishing signed SAML 2.0 metadata as a machine-readable EntityDescriptor. entityID…
+- [University of Sussex Single Sign-On (Okta tenant)](https://apis.io/apis/university-of-sussex/okta-sso/) — Sussex's Okta organization, reached on the Sussex-branded hostname okta.sussex.ac.uk, which CNAMEs to sussexac.customdomains.okta.com. It serves a complete…
+- [University of Sussex Canvas VLE (Instructure tenant)](https://apis.io/apis/university-of-sussex/canvas-vle/) — Sussex's virtual learning environment, an Instructure Canvas deployment on the university's own hostname canvas.sussex.ac.uk, which CNAMEs to…
+- [University of Sussex Research Data Repository (Figshare tenant)](https://apis.io/apis/university-of-sussex/figshare-repository/) — Sussex's institutional research repository, a Figshare tenant at sussex.figshare.com (CNAME to figshare.com). The relationship is independently confirmed by…
+- [University of Sussex Library Discovery (Ex Libris Primo tenant)](https://apis.io/apis/university-of-sussex/primo-discovery/) — Library discovery for Sussex runs on Ex Libris Primo VE as institution view 44SUS_INST / 44SUS_VU1, hosted on the vendor's shared platform at…
 
-## Who operates what
+### Published properties
 
-Every surface below carries an operator. `institution` means Sussex runs the thing the contract
-describes. `tenant` means Sussex owns the account and the data but a vendor wrote the contract and
-runs the platform — the contract is scored against that vendor's own profile, not against Sussex.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-| Surface | Operator | Evidence |
-|---|---|---|
-| [Shibboleth IdP SAML 2.0 metadata](https://idp.sussex.ac.uk/idp/shibboleth) | **institution** | 200; `entityID=https://idp.sussex.ac.uk/shibboleth`, `shibmd:Scope=sussex.ac.uk`; host CNAMEs to `uos-idp-shib-prod.uksouth.cloudapp.azure.com` |
-| [Okta SSO (OIDC discovery)](https://okta.sussex.ac.uk/.well-known/openid-configuration) | tenant | 200; issuer `https://okta.sussex.ac.uk`; host CNAMEs to `sussexac.customdomains.okta.com` |
-| [Canvas VLE](https://canvas.sussex.ac.uk/api/lti/security/jwks) | tenant | `/api/v1/*` 401; LTI 1.3 JWKS 200; host CNAMEs to `universityofsussex-vanity.instructure.com` |
-| [Figshare research repository](https://sussex.figshare.com/) | tenant | AWS WAF challenge (202); DataCite client `FIGSHARE.SUSSEX`, domains `sussex.figshare.com` |
-| [Ex Libris Primo discovery](https://sussex.primo.exlibrisgroup.com/discovery/search?vid=44SUS_INST:44SUS_VU1) | tenant | 200; institution view `44SUS_INST` on the vendor's shared host |
+#### Vocabulary (1)
 
-## Correction — 2026-08-30
+The provider's domain terms, defined.
 
-This profile previously listed **ten OpenAPI definitions** under Sussex's name
-(`altmetric`, `articles`, `authors`, `collections`, `institutions`, `oauth`, `other`, `profiles`,
-`projects`, `symplectic`) and **thirty-eight artifacts derived from them**. All ten were the same
-document: Figshare's generic v2 API contract, `info.title` beginning "Figshare", `info.contact`
-`support.figshare.com`, and an **empty `servers` block** — the same contract eleven other
-institutions in this catalog also shipped under their own names. None of it was Sussex's
-engineering, and all of it has been removed, along with the JSON Schemas, JSON Structures,
-examples, Postman/OpenCollection collections, Spectral rulesets, vocabulary, JSON-LD context,
-agentic-access classification and capability map that inherited its provenance.
+- [University of Sussex Research Repository Vocabulary](https://apis.io/vocabularies/university-of-sussex/university-of-sussex-vocabulary/)
 
-What replaced it is smaller and true: Sussex's own Shibboleth identity provider, four recorded
-tenant relationships, and probed conformance against the education regime's domain standards.
+#### Security (2)
 
-## Artifacts
+Authentication, trust centre, and vulnerability disclosure.
 
-- [conformance/university-of-sussex-domain-standards.yml](conformance/university-of-sussex-domain-standards.yml) — probed `shibboleth`, `saml`, `lti`, `datacite`; `oai-pmh` blocked
-- [authentication/university-of-sussex-authentication.yml](authentication/university-of-sussex-authentication.yml) — probed
-- [scopes/university-of-sussex-scopes.yml](scopes/university-of-sussex-scopes.yml) — probed
-- [security/university-of-sussex-domain-security.yml](security/university-of-sussex-domain-security.yml)
-- [plans/university-of-sussex-plans-pricing.yml](plans/university-of-sussex-plans-pricing.yml)
-- [rate-limits/university-of-sussex-rate-limits.yml](rate-limits/university-of-sussex-rate-limits.yml)
-- [finops/university-of-sussex-finops.yml](finops/university-of-sussex-finops.yml)
-- [review.yml](review.yml)
+- [University Of Sussex Authentication](https://apis.io/security/university-of-sussex/university-of-sussex-authentication/)
+- [University Of Sussex Domain Security](https://apis.io/security/university-of-sussex/university-of-sussex-domain-security/)
 
-There is no `openapi/` directory. Sussex publishes no OpenAPI of its own, and none has been
-generated to fill the gap.
+#### OAuth scopes (1)
 
-## Timestamps
+The permissions the API asks for.
 
-- Created: 2026-06-03
-- Modified: 2026-08-30
+- [University Of Sussex Scopes](https://apis.io/scopes/university-of-sussex/university-of-sussex-scopes/)
 
-## Common Properties
+#### Plans and pricing (1)
 
-- Website: https://www.sussex.ac.uk/
-- GitHub: https://github.com/universityofsussex (exists, zero public repositories)
-- LinkedIn: https://www.linkedin.com/school/university-of-sussex/
-- Course catalog: https://www.sussex.ac.uk/study/undergraduate/courses
-- Research computing (HPC): https://www.sussex.ac.uk/its/services/research/highperformance
-- IT service catalogue: https://www.sussex.ac.uk/its/about/servicedescriptions
+Published plans, tiers and prices.
 
-## Notes
+- [University Of Sussex Plans Pricing](https://apis.io/plans/university-of-sussex/university-of-sussex-plans-pricing/)
 
-- Verification discipline: only surfaces confirmed live are listed; nothing fabricated.
-- Sussex operates **no public developer portal and no institution-authored API contract**. That is
-  a correct measurement of a university, not a gap in this profile.
-- `data.sussex.ac.uk` and `api.sussex.ac.uk` do not resolve. `www.sussex.ac.uk/llms.txt` is a 404.
-- `sussex.figshare.com` sits behind an AWS WAF challenge (HTTP 202, `x-amzn-waf-action: challenge`)
-  that answers every request with an empty body, so the Figshare tenant's OAI-PMH endpoint could
-  not be confirmed. That is a blocked probe, not a dead host.
-- The former Sussex Research Online EPrints OAI-PMH endpoint (`sro.sussex.ac.uk/cgi/oai2`) is
-  decommissioned and redirects to an HTML publications page.
+#### Rate limits (1)
 
-## Maintainers
+Published request limits.
 
-- Kin Lane — kin@apievangelist.com
+- [University Of Sussex Rate Limits](https://apis.io/rate-limits/university-of-sussex/university-of-sussex-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [University Of Sussex Finops](https://apis.io/finops/university-of-sussex/university-of-sussex-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.sussex.ac.uk/)
+- [Documentation](https://www.sussex.ac.uk/its/about/servicedescriptions)
+- [Support](https://www.sussex.ac.uk/its/help/)
+- [Blog](https://www.sussex.ac.uk/news/)
+- [Privacy policy](https://www.sussex.ac.uk/about/website/privacy-and-cookies/privacy)
+- [GitHub](https://github.com/universityofsussex)
+
+## API Evangelist rating
+
+**Kin Score 21.4** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 4.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 35.7 |
+| Access clarity | 15.8 |
+
+**Agent readiness 3.1** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 30.4** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/university-of-sussex/](https://apis.io/providers/university-of-sussex/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for University of Sussex: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/university-of-sussex/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
